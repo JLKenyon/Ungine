@@ -1,11 +1,17 @@
 import {createApp} from 'vue';
 
 let app = createApp({
+    data () {
+        return {
+            player_x: 300,
+            player_y: 550,
+        }
+    },
     template: `<h1>My shooter game!</h1>
     <svg width="600" height="600" viewbox="0 0 600 600">
       <rect x="0" y="0" width="600" height="600" style="fill:#000" />
 
-      <rect x="300" y="550" width="20" height="30" style="fill:#00f" />
+      <rect :x="player_x" :y="player_y" width="20" height="30" style="fill:#00f" />
 
       <rect x="100" y="150" width="30" height="20" style="fill:#f00" />
       <rect x="200" y="150" width="30" height="20" style="fill:#f00" />
