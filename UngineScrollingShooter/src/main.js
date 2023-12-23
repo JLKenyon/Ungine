@@ -18,12 +18,17 @@ let app = createApp({
     },
     template: `<h1>My shooter game!</h1>
     <svg width="600" height="600" viewbox="0 0 600 600">
+      <defs>
+        <rect id="player" width="20" height="30" style="fill:#00f" />
+        <rect id="enemy" width="30" height="20" style="fill:#f00" />
+        <rect id="bullet" width="3" height="3" style="fill:#ff0" />
+      </defs>
       <rect x="0" y="0" width="600" height="600" style="fill:#000" />
 
-      <rect :x="player.x" :y="player.y" width="20" height="30" style="fill:#00f" />
+      <use xlink:href="#player" :x="player.x" :y="player.y" width="20" />
 
-      <rect v-for="enemy in enemies" :x="enemy.x" :y="enemy.y" width="30" height="20" style="fill:#f00" />
-      <rect v-for="bullet in bullets" :x="bullet.x" :y="bullet.y" width="3" height="3" style="fill:#ff0" />
+      <use v-for="enemy in enemies" xlink:href="#enemy" :x="enemy.x" :y="enemy.y" />
+      <use v-for="bullet in bullets" xlink:href="#bullet" :x="bullet.x" :y="bullet.y" />
     </svg>`,
     methods: {
         keyPress(event) {
