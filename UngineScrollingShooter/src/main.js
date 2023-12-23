@@ -1,5 +1,8 @@
 import {createApp} from 'vue';
 
+import ufo_image from '../assets/ufo.png';
+import player_image from '../assets/player.png';
+
 let app = createApp({
     data () {
         return {
@@ -14,13 +17,17 @@ let app = createApp({
             ],
             keyState: {},
             bullets: [],
+            assets: {
+                ufo: ufo_image,
+                player: player_image,
+            },
         }
     },
     template: `<h1>My shooter game!</h1>
     <svg width="600" height="600" viewbox="0 0 600 600">
       <defs>
-        <rect id="player" width="20" height="30" style="fill:#00f" />
-        <rect id="enemy" width="30" height="20" style="fill:#f00" />
+        <image id="player" width="20" height="30" :href="assets.player" />
+        <image id="enemy" width="30" height="20" :href="assets.ufo" />
         <rect id="bullet" width="3" height="3" style="fill:#ff0" />
       </defs>
       <rect x="0" y="0" width="600" height="600" style="fill:#000" />
