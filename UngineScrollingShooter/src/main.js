@@ -3,8 +3,7 @@ import {createApp} from 'vue';
 let app = createApp({
     data () {
         return {
-            player_x: 300,
-            player_y: 550,
+            player: {x: 300, y: 550},
             enemies: [
                 {x: 100, y: 150},
                 {x: 200, y: 150},
@@ -18,7 +17,7 @@ let app = createApp({
     <svg width="600" height="600" viewbox="0 0 600 600">
       <rect x="0" y="0" width="600" height="600" style="fill:#000" />
 
-      <rect :x="player_x" :y="player_y" width="20" height="30" style="fill:#00f" />
+      <rect :x="player.x" :y="player.y" width="20" height="30" style="fill:#00f" />
 
       <rect v-for="enemy in enemies" :x="enemy.x" :y="enemy.y" width="30" height="20" style="fill:#f00" />
     </svg>`,
@@ -27,19 +26,19 @@ let app = createApp({
             switch (event.key) {
                 case 'ArrowLeft':
                 case 'a':
-                    this.player_x -= 10;
+                    this.player.x -= 10;
                     break;
                 case 'ArrowRight':
                 case 'd':
-                    this.player_x += 10;
+                    this.player.x += 10;
                     break;
                 case 'ArrowUp':
                 case 'w':
-                    this.player_y -= 10;
+                    this.player.y -= 10;
                     break;
                 case 'ArrowDown':
                 case 's':
-                    this.player_y += 10;
+                    this.player.y += 10;
                     break;
             }
         },
