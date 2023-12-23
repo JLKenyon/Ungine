@@ -18,7 +18,30 @@ let app = createApp({
       <rect x="300" y="150" width="30" height="20" style="fill:#f00" />
       <rect x="400" y="150" width="30" height="20" style="fill:#f00" />
       <rect x="500" y="150" width="30" height="20" style="fill:#f00" />
-    </svg>`
+    </svg>`,
+    methods: {
+        keyPress(event) {
+            console.log(event.key);
+            switch (event.key) {
+                case 'ArrowLeft':
+                    this.player_x -= 10;
+                    break;
+                case 'ArrowRight':
+                    this.player_x += 10;
+                    break;
+                case 'ArrowUp':
+                    this.player_y -= 10;
+                    break;
+                case 'ArrowDown':
+                    this.player_y += 10;
+                    break;
+            }
+        },
+    },
+    mounted: function() {
+        // register a listener for keypresses
+        document.addEventListener('keydown', this.keyPress);
+    },
 });
 
 function main() {
