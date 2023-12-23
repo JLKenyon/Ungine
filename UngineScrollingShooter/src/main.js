@@ -21,7 +21,6 @@ let app = createApp({
     </svg>`,
     methods: {
         keyPress(event) {
-            console.log(event.key);
             switch (event.key) {
                 case 'ArrowLeft':
                 case 'a':
