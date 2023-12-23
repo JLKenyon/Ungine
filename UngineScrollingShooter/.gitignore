@@ -1,0 +1,5 @@
+dist
+node_modules
+
+# This is commented out for demo purposes, you should include this in your game!
+package-lock.json
