@@ -13,6 +13,7 @@ let app = createApp({
                 {x: 500, y: 150},
             ],
             keyState: {},
+            bullets: [],
         }
     },
     template: `<h1>My shooter game!</h1>
@@ -22,10 +23,15 @@ let app = createApp({
       <rect :x="player.x" :y="player.y" width="20" height="30" style="fill:#00f" />
 
       <rect v-for="enemy in enemies" :x="enemy.x" :y="enemy.y" width="30" height="20" style="fill:#f00" />
+      <rect v-for="bullet in bullets" :x="bullet.x" :y="bullet.y" width="3" height="3" style="fill:#ff0" />
     </svg>`,
     methods: {
         keyPress(event) {
             this.keyState[event.key] = true;
+
+            if (event.key == ' ') {
+                this.bullets.push({x: this.player.x + 10, y: this.player.y - 10});
+            }
         },
         keyUp(event) {
             this.keyState[event.key] = false;
@@ -37,8 +43,28 @@ let app = createApp({
                 enemy.y += 1;
             }
 
+            for (let bullet of this.bullets) {
+                bullet.y -= 3;
+            }
+
+            // Remove bullets that leave the screen
+            this.bullets = this.bullets.filter(bullet => bullet.y > 0);
+
+            // Remove enemies that leave the screen
+            this.enemies = this.enemies.filter(enemy => enemy.y < 600);
+
+            // Remove enemies that are hit by bullets
+            this.enemies = this.enemies.filter(enemy => {
+                for (let bullet of this.bullets) {
+                    if (bullet.x >= enemy.x && bullet.x <= enemy.x + 30 && bullet.y >= enemy.y && bullet.y <= enemy.y + 20) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+
             // move player
-            this.player.x += 2 * ((this.keyState['d'] ? 1 : 0) - (this.keyState['a'] ? 1 : 0));
+            this.player.x += 2 * ((this.keyState['d'] || this.keyState['ArrowRight'] ? 1 : 0) - (this.keyState['a'] || this.keyState['ArrowLeft'] ? 1 : 0));
 
             setTimeout(this.tick, 1000.0/60.0);
         },
