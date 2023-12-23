@@ -5,6 +5,13 @@ let app = createApp({
         return {
             player_x: 300,
             player_y: 550,
+            enemies: [
+                {x: 100, y: 150},
+                {x: 200, y: 150},
+                {x: 300, y: 150},
+                {x: 400, y: 150},
+                {x: 500, y: 150},
+            ],
         }
     },
     template: `<h1>My shooter game!</h1>
@@ -13,11 +20,7 @@ let app = createApp({
 
       <rect :x="player_x" :y="player_y" width="20" height="30" style="fill:#00f" />
 
-      <rect x="100" y="150" width="30" height="20" style="fill:#f00" />
-      <rect x="200" y="150" width="30" height="20" style="fill:#f00" />
-      <rect x="300" y="150" width="30" height="20" style="fill:#f00" />
-      <rect x="400" y="150" width="30" height="20" style="fill:#f00" />
-      <rect x="500" y="150" width="30" height="20" style="fill:#f00" />
+      <rect v-for="enemy in enemies" :x="enemy.x" :y="enemy.y" width="30" height="20" style="fill:#f00" />
     </svg>`,
     methods: {
         keyPress(event) {
