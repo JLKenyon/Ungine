@@ -42,10 +42,21 @@ let app = createApp({
                     break;
             }
         },
+        tick() {
+            // move enemies
+            for (let enemy of this.enemies) {
+                enemy.y += 1;
+            }
+
+            setTimeout(this.tick, 1000.0/60.0);
+        },
     },
     mounted: function() {
         // register a listener for keypresses
         document.addEventListener('keydown', this.keyPress);
+
+        // Start the clock
+        setTimeout(this.tick, 1000.0/60.0);
     },
 });
 
