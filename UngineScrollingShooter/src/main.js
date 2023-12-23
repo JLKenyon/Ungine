@@ -4,6 +4,7 @@ let app = createApp({
     data () {
         return {
             player: {x: 300, y: 550},
+            input: {left: 0, right: 0, up: 0, down: 0},
             enemies: [
                 {x: 100, y: 150},
                 {x: 200, y: 150},
@@ -11,6 +12,7 @@ let app = createApp({
                 {x: 400, y: 150},
                 {x: 500, y: 150},
             ],
+            keyState: {},
         }
     },
     template: `<h1>My shooter game!</h1>
@@ -23,30 +25,20 @@ let app = createApp({
     </svg>`,
     methods: {
         keyPress(event) {
-            switch (event.key) {
-                case 'ArrowLeft':
-                case 'a':
-                    this.player.x -= 10;
-                    break;
-                case 'ArrowRight':
-                case 'd':
-                    this.player.x += 10;
-                    break;
-                case 'ArrowUp':
-                case 'w':
-                    this.player.y -= 10;
-                    break;
-                case 'ArrowDown':
-                case 's':
-                    this.player.y += 10;
-                    break;
-            }
+            this.keyState[event.key] = true;
         },
+        keyUp(event) {
+            this.keyState[event.key] = false;
+        },
+
         tick() {
             // move enemies
             for (let enemy of this.enemies) {
                 enemy.y += 1;
             }
+
+            // move player
+            this.player.x += (this.keyState['d'] ? 1 : 0) - (this.keyState['a'] ? 1 : 0);
 
             setTimeout(this.tick, 1000.0/60.0);
         },
@@ -54,6 +46,7 @@ let app = createApp({
     mounted: function() {
         // register a listener for keypresses
         document.addEventListener('keydown', this.keyPress);
+        document.addEventListener('keyup', this.keyUp);
 
         // Start the clock
         setTimeout(this.tick, 1000.0/60.0);
