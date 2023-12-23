@@ -24,15 +24,19 @@ let app = createApp({
             console.log(event.key);
             switch (event.key) {
                 case 'ArrowLeft':
+                case 'a':
                     this.player_x -= 10;
                     break;
                 case 'ArrowRight':
+                case 'd':
                     this.player_x += 10;
                     break;
                 case 'ArrowUp':
+                case 'w':
                     this.player_y -= 10;
                     break;
                 case 'ArrowDown':
+                case 's':
                     this.player_y += 10;
                     break;
             }
