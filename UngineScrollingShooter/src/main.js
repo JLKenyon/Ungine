@@ -38,7 +38,7 @@ let app = createApp({
             }
 
             // move player
-            this.player.x += (this.keyState['d'] ? 1 : 0) - (this.keyState['a'] ? 1 : 0);
+            this.player.x += 2 * ((this.keyState['d'] ? 1 : 0) - (this.keyState['a'] ? 1 : 0));
 
             setTimeout(this.tick, 1000.0/60.0);
         },
